@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "dalektopia",
+  "version": "${version}",
+  "name": "Dalektopia",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/dalektopia/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "io.github.ranafangirl.dalektopia.client.DalektopiaDataGenerator"
+    ],
+    "client": [
+      "io.github.ranafangirl.dalektopia.client.DalektopiaClient"
+    ],
+    "main": [
+      "io.github.ranafangirl.dalektopia.Dalektopia"
+    ]
+  },
+  "mixins": [
+    "dalektopia.mixins.json",
+    {
+      "config": "dalektopia.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
