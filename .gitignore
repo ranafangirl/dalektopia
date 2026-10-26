@@ -12,10 +12,14 @@ out/
 .idea
 *.iml
 # mpeltonen/sbt-idea plugin
+.idea/workspace.xml
 .idea_modules/
+.idea/runConfigurations/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
 # Common working directory
 run
+
+.vscode/
