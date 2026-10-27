@@ -1,5 +1,6 @@
 {
   "base": "dalektopia:default_dalek_skirt",
+  "stats": { "max_health": 35, "speed": 0.15, "scale": 1.0, "width": 0.9, "height": 1.5 },
   "parts": {
     "torso_point": "dalektopia:special_dalek_torso",
     "middle_arm_point": [ "dalektopia:special_dalek_cannon", "dalektopia:default_dalek_gun" ]

@@ -1,12 +1,12 @@
 package io.github.ranafangirl.dalektopia;
 
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -18,6 +18,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -52,7 +53,10 @@ public class DalekEntity extends HostileEntity implements GeoEntity {
     }
 
     public static DefaultAttributeContainer.Builder createDalekAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2);
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, DalekStatistics.DEFAULT.maxHealth())
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, DalekStatistics.DEFAULT.speed())
+                .add(EntityAttributes.GENERIC_SCALE, DalekStatistics.DEFAULT.scale());
     }
 
     @Override
@@ -83,8 +87,30 @@ public class DalekEntity extends HostileEntity implements GeoEntity {
         builder.add(BUILD, new NbtCompound());
     }
 
+    @Override
+    public EntityDimensions getBaseDimensions(EntityPose pose) {
+        DalekBuild current = build != null ? build : DalekBuild.DEFAULT_CODEC;
+        return EntityDimensions.fixed(current.stats().width(), current.stats().height());
+    }
+
+    private void applyStats(DalekStatistics stats) {
+        Dalektopia.LOGGER.info("[dalek] applying {}", stats);
+        setBaseAttribute(EntityAttributes.GENERIC_MAX_HEALTH, stats.maxHealth());
+        setBaseAttribute(EntityAttributes.GENERIC_MOVEMENT_SPEED, stats.speed());
+        setBaseAttribute(EntityAttributes.GENERIC_SCALE, stats.scale());
+        if (getHealth() > getMaxHealth()) setHealth(getMaxHealth());
+    }
+
+    private void setBaseAttribute(RegistryEntry<EntityAttribute> attribute, double value) {
+        EntityAttributeInstance instance = getAttributeInstance(attribute);
+        if (instance != null) instance.setBaseValue(value);
+    }
+
     public void setBuild(DalekBuild newBuild) {
         built = true;
+        build = newBuild;
+        applyStats(newBuild.stats());
+        calculateDimensions();
         DalekBuild.BUILD_CODEC.encodeStart(NbtOps.INSTANCE, newBuild).resultOrPartial(Dalektopia.LOGGER::error).ifPresent(nbt -> dataTracker.set(BUILD, (NbtCompound) nbt));
     }
 
@@ -97,7 +123,8 @@ public class DalekEntity extends HostileEntity implements GeoEntity {
         super.onTrackedDataSet(data);
         if (!BUILD.equals(data)) return;
         NbtCompound nbt = dataTracker.get(BUILD);
-        build = nbt.isEmpty() ? DalekBuild.DEFAULT_CODEC: DalekBuild.BUILD_CODEC.parse(NbtOps.INSTANCE, nbt).resultOrPartial(Dalektopia.LOGGER::error).orElse(DalekBuild.DEFAULT_CODEC);
+        build = nbt.isEmpty() ? DalekBuild.DEFAULT_CODEC: DalekBuild.BUILD_CODEC.parse(NbtOps.INSTANCE, nbt).resultOrPartial(err -> Dalektopia.LOGGER.error("[dalek] bad build data: {}", err)).orElse(DalekBuild.DEFAULT_CODEC);
+        calculateDimensions();
     }
 
     private void assignType(Identifier id) {
@@ -116,7 +143,9 @@ public class DalekEntity extends HostileEntity implements GeoEntity {
             return;
         }
         typeId = id;
+        Dalektopia.LOGGER.info("[dalek] type {} stats={}", id, type.stats());
         setBuild(type.resolve(getRandom()));
+        setHealth(getMaxHealth());
     }
 
     @Override

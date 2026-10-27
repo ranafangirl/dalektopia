@@ -1,0 +1,10 @@
+{
+  "base": { "part": "dalektopia:default_dalek_skirt", "texture": "dalektopia:future_dalek_skirt" },
+  "stats": { "max_health": 60, "speed": 0.2, "scale": 1.0, "width": 0.9, "height": 1.5 },
+  "parts": {
+    "torso_point": "dalektopia:future_dalek_torso",
+    "head_point": "dalektopia:future_dalek_head",
+    "eye_point": "dalektopia:future_dalek_eye",
+    "middle_arm_point": "dalektopia:special_dalek_cannon"
+  }
+}
