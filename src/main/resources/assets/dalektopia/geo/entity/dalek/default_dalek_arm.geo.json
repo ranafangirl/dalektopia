@@ -12,7 +12,7 @@
 			},
 			"bones": [
 				{
-					"name": "limb",
+					"name": "arm",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [0, -2.5, -10], "size": [0, 5, 10], "uv": [0, -10]}
@@ -20,7 +20,7 @@
 				},
 				{
 					"name": "grab_point",
-					"parent": "limb",
+					"parent": "arm",
 					"pivot": [0, 0, -8]
 				}
 			]

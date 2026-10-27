@@ -9,14 +9,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class DalektopiaItems {
-    public static final Item DALEK_SPAWN_EGG = Registry.register(
-            Registries.ITEM,
-            Identifier.of(Dalektopia.MOD_ID, "dalek_spawn_egg"),
-            new SpawnEggItem(DalektopiaEntities.DALEK, 0xC3CBD3, 0x7DCBE1, new Item.Settings())
-    );
+    public static final Item DALEK_SPAWN_EGG = Registry.register(Registries.ITEM, Identifier.of(Dalektopia.MOD_ID, "dalek_spawn_egg"), new SpawnEggItem(DalektopiaEntities.DALEK, 0xC3CBD3, 0x7DCBE1, new Item.Settings()));
 
     public static void register() {
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS)
-                .register(entries -> entries.add(DALEK_SPAWN_EGG));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> entries.add(DALEK_SPAWN_EGG));
     }
 }

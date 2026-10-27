@@ -21,7 +21,7 @@
 					]
 				},
 				{
-					"name": "right_arm_point",
+					"name": "left_arm_point",
 					"parent": "torso",
 					"pivot": [-2.5, 2.5, -5]
 				},
@@ -31,7 +31,12 @@
 					"pivot": [0, 10, 0]
 				},
 				{
-					"name": "left_arm_point",
+					"name": "middle_arm_point",
+					"parent": "torso",
+					"pivot": [-0.1, 2.5, -5]
+				},
+				{
+					"name": "right_arm_point",
 					"parent": "torso",
 					"pivot": [2.5, 2.5, -5]
 				}

@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "eye",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, -1.5, -7], "size": [3, 3, 2], "uv": [0, 0]},
+						{"origin": [-1, -1, -5], "size": [2, 2, 3], "uv": [0, 5]},
+						{"origin": [0, -0.5, -7], "size": [0, 2, 7], "uv": [0, 3]}
+					]
+				},
+				{
+					"name": "grab_point",
+					"parent": "eye",
+					"pivot": [0, 0, -7]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,10 @@
+{
+  "base": "dalektopia:default_dalek_skirt",
+  "parts": {
+    "torso_point": "dalektopia:default_dalek_torso",
+    "head_point": "dalektopia:default_dalek_head",
+    "eye_point": "dalektopia:default_dalek_eye",
+    "left_arm_point": "dalektopia:default_dalek_arm",
+    "right_arm_point": "dalektopia:default_dalek_gun"
+  }
+}

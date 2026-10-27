@@ -12,17 +12,17 @@
 			},
 			"bones": [
 				{
-					"name": "limb",
+					"name": "eye",
 					"pivot": [0, 0, 0],
 					"cubes": [
 						{"origin": [-1.5, -1.5, -7], "size": [3, 3, 2], "uv": [0, 0]},
-						{"origin": [-1, -1, -4], "size": [2, 2, 2], "uv": [0, 8]},
-						{"origin": [0, -0.5, -7], "size": [0, 1, 7], "uv": [0, 5]}
+						{"origin": [-1, -1, -4], "size": [2, 2, 2], "uv": [0, 5]},
+						{"origin": [0, -0.5, -7], "size": [0, 1, 7], "uv": [0, 2]}
 					]
 				},
 				{
 					"name": "grab_point",
-					"parent": "limb",
+					"parent": "eye",
 					"pivot": [0, 0, -7]
 				}
 			]
